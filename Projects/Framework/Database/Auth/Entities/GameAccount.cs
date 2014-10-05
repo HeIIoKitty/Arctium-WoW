@@ -20,7 +20,7 @@ using Framework.Constants.Account;
 
 namespace Framework.Database.Auth.Entities
 {
-    public class GameAccount
+    public class GameAccounts
     {
         public uint Id                { get; set; }
         public uint AccountId         { get; set; }
@@ -33,10 +33,6 @@ namespace Framework.Database.Auth.Entities
         public string SessionKey      { get; set; }
         public bool IsOnline          { get; set; }
 
-        public virtual Account Account { get; set; }
-
-        public virtual IList<GameAccountRace> GameAccountRaces { get; set; }
-        public virtual IList<GameAccountClass> GameAccountClasses { get; set; }
-        public virtual IList<GameAccountCharacterTemplate> GameAccountCharacterTemplates { get; set; }
+        public virtual Accounts Account { get; set; }
     }
 }

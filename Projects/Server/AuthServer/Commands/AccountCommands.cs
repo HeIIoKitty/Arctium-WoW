@@ -38,7 +38,7 @@ namespace AuthServer.Commands
             if (email != null && password != null)
             {
                 var salt = new byte[0].GenerateRandomKey(0x20).ToHexString();
-                var result = DB.Auth.Any<Account>(a => a.Email == email);
+                var result = DB.Auth.Any<Accounts>(a => a.Email == email);
 
                 if (!result)
                 {
@@ -46,7 +46,7 @@ namespace AuthServer.Commands
 
                     srp.CalculateX(email, password.ToUpper(), false);
 
-                    var account = new Account
+                    var account = new Accounts
                     {
                         Email            = email,
                         PasswordVerifier = srp.V.ToHexString(),
@@ -55,7 +55,13 @@ namespace AuthServer.Commands
                     };
 
                     if (DB.Auth.Add(account))
+                    {
+                        var newAcc = DB.Auth.Single<Accounts>(r => r.Email == email);
+
+                        DB.Auth.Execute("INSERT INTO account (id, username, email, expansion) VALUES (?, ?, ?, ?)", newAcc.Id, newAcc.Email, newAcc.Email, 5);
+
                         Log.Message(LogType.Normal, "Account {0} successfully created", email);
+                    }
                 }
                 else
                     Log.Message(LogType.Error, "Account {0} already in database", email);
@@ -65,13 +71,13 @@ namespace AuthServer.Commands
         [ConsoleCommand("CreateGameAccount", "")]
         public static void CreateGameAccount(string[] args)
         {
-            var accountId = Command.Read<int>(args, 0);
+            var email = Command.Read<string>(args, 0);
             var game = Command.Read<string>(args, 1);
             var index = Command.Read<byte>(args, 2);
 
-            if (accountId != 0 && game != "" && index != 0)
+            if (email != "" && game != "" && index != 0)
             {
-                var account = DB.Auth.Single<Account>(a => a.Id == accountId);
+                var account = DB.Auth.Single<Accounts>(a => a.Email == email);
 
                 if (account != null)
                 {
@@ -79,7 +85,7 @@ namespace AuthServer.Commands
 
                     if (!exists)
                     {
-                        var gameAccount = new GameAccount
+                        var gameAccount = new GameAccounts
                         {
                             AccountId = account.Id,
                             Game      = game,
@@ -90,13 +96,13 @@ namespace AuthServer.Commands
                         };
 
                         if (DB.Auth.Add(gameAccount))
-                            Log.Message(LogType.Normal, "GameAccount '{0}{1}' for Account '{2}' successfully created.", game, index, accountId);
+                            Log.Message(LogType.Normal, "GameAccount '{0}{1}' for Account '{2}' successfully created.", game, index, email);
                     }
                     else
-                        Log.Message(LogType.Error, "GameAccount '{0}{1}' for Account '{2}' already in database", game, index, accountId);
+                        Log.Message(LogType.Error, "GameAccount '{0}{1}' for Account '{2}' already in database", game, index, email);
                 }
                 else
-                    Log.Message(LogType.Error, "Account '{0}' doesn't exist.", accountId);
+                    Log.Message(LogType.Error, "Account '{0}' doesn't exist.", email);
             }
         }
     }

@@ -61,22 +61,22 @@ namespace AuthServer.Network.Packets.Handlers
                 Log.Message(LogType.Debug, "Platform: {0}", platform);
                 Log.Message(LogType.Debug, "Locale: {0}", build);
 
-                if (DB.Auth.Any<Component>(c => c.Program == program && c.Platform == platform && c.Build == build))
+                if (DB.Auth.Any<Components>(c => c.Program == program && c.Platform == platform && c.Build == build))
                     continue;
 
-                if (!DB.Auth.Any<Component>(c => c.Program == program))
+                if (!DB.Auth.Any<Components>(c => c.Program == program))
                 {
                     AuthHandler.SendAuthComplete(true, AuthResult.InvalidProgram, client);
                     return;
                 }
 
-                if (!DB.Auth.Any<Component>(c => c.Platform == platform))
+                if (!DB.Auth.Any<Components>(c => c.Platform == platform))
                 {
                     AuthHandler.SendAuthComplete(true, AuthResult.InvalidPlatform, client);
                     return;
                 }
 
-                if (!DB.Auth.Any<Component>(c => c.Build == build))
+                if (!DB.Auth.Any<Components>(c => c.Build == build))
                 {
                     AuthHandler.SendAuthComplete(true, AuthResult.InvalidGameVersion, client);
                     return;
@@ -89,7 +89,7 @@ namespace AuthServer.Network.Packets.Handlers
             {
                 var accountLength = packet.Read<int>(9) + 3;
                 var accountName = packet.ReadString(accountLength);
-                var account = DB.Auth.Single<Account>(a => a.Email == accountName);
+                var account = DB.Auth.Single<Accounts>(a => a.Email == accountName);
 
                 // First account lookup on database
                 if ((session.Account = account) != null)

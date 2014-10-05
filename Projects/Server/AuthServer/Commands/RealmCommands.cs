@@ -35,52 +35,22 @@ namespace AuthServer.Commands
 
             if (realmName != "" && realmIP != "" && realmPort != 0)
             {
-                var exists = DB.Auth.Any<Realm>(r => r.Name == realmName);
+                var exists = DB.Auth.Any<realmlist>(r => r.Name == realmName);
 
                 if (!exists)
                 {
-                    var realm = new Realm
+                    var realm = new realmlist
                     {
-                        Name   = realmName,
-                        IP     = realmIP,
-                        Port   = realmPort,
-                        Type   = 1,
-                        Status = 0,
-                        Flags  = 0
+                        Name       = realmName,
+                        Address    = realmIP,
+                        Port       = realmPort,
+                        Icon       = 1,
+                        RealmFlags = 0
                     };
 
                     if (DB.Auth.Add(realm))
                     {
-                        var newRealm = DB.Auth.Single<Realm>(r => r.Name == realm.Name);
-
-                        // Default class/expansion data (sent in AuthResponse)
-                        var defaultAllowedClasses = new byte[,] { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 }, { 6, 2 },
-                                                                { 7, 0 }, { 8, 0 }, { 9, 0 }, { 10, 4 }, { 11, 0 } };
-
-                        // Default race/expansion data (sent in AuthResponse)
-                        var defaultAllowedRaces = new byte[,] { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 }, { 6, 0 },
-                                                              { 7, 0 }, { 8, 0 }, { 9, 3 }, { 10, 1 }, { 11, 1 }, { 22, 3 },
-                                                              { 24, 4 }, { 25, 4 }, { 26, 4 }};
-
-                        for (int i = 0; i < defaultAllowedClasses.Length / 2; i++)
-                        {
-                            DB.Auth.Add(new RealmClass
-                            {
-                                RealmId   = newRealm.Id,
-                                Class     = defaultAllowedClasses[i, 0],
-                                Expansion = defaultAllowedClasses[i, 1]
-                            });
-                        }
-
-                        for (int i = 0; i < defaultAllowedRaces.Length / 2; i++)
-                        {
-                            DB.Auth.Add(new RealmRace
-                            {
-                                RealmId   = newRealm.Id,
-                                Race      = defaultAllowedRaces[i, 0],
-                                Expansion = defaultAllowedRaces[i, 1]
-                            });
-                        }
+                        var newRealm = DB.Auth.Single<realmlist>(r => r.Name == realm.Name);
 
                         Log.Message(LogType.Normal, "Realm '{0}' successfully created.", realmName);
                     }

@@ -37,9 +37,9 @@ namespace AuthServer.Network.Sessions
 {
     class AuthSession : IDisposable
     {
-        public Account Account { get; set; }
-        public List<GameAccount> GameAccounts { get; set; }
-        public GameAccount GameAccount { get; set; }
+        public Accounts Account { get; set; }
+        public List<GameAccounts> GameAccounts { get; set; }
+        public GameAccounts GameAccount { get; set; }
         public SRP6a SecureRemotePassword { get; set; }
         public BNetCrypt Crypt { get; set; }
 

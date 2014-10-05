@@ -17,7 +17,7 @@
 
 namespace Framework.Database.Auth.Entities
 {
-    public class Module
+    public class Modules
     {
         public string Hash   { get; set; }
         public string Type   { get; set; }

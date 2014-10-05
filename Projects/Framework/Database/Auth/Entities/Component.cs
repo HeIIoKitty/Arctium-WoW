@@ -17,7 +17,7 @@
 
 namespace Framework.Database.Auth.Entities
 {
-    public class Component
+    public class Components
     {
         public string Program  { get; set; }
         public string Platform { get; set; }

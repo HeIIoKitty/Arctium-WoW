@@ -15,14 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+
 namespace Framework.Database.Auth.Entities
 {
-    public class RealmRace
+    public class realmlist
     {
-        public uint RealmId   { get; set; }
-        public byte Race      { get; set; }
-        public byte Expansion { get; set; }
-
-        public virtual Realm Realm { get; set; }
+        public uint Id                   { get; set; }
+        public string Name               { get; set; }
+        public string Address            { get; set; }
+        public int Port                  { get; set; }
+        public byte Icon                 { get; set; }
+        public byte RealmFlags           { get; set; }
+        public byte Timezone             { get; set; }
+        public byte AllowedSecurityLevel { get; set; }
+        public float Population          { get; set; }
+        public string RealmBuilds        { get; set; }
     }
 }

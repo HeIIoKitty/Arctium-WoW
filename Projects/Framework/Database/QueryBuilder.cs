@@ -33,7 +33,7 @@ namespace Framework.Database
             sqlString = new StringBuilder();
 
             // ToDo: Add support for column selection
-            sqlString.AppendFormat("SELECT * FROM `{0}`", typeof(T).Name.Pluralize());
+            sqlString.AppendFormat("SELECT * FROM `{0}`", typeof(T).Name);
 
             return sqlString.ToString();
         }
@@ -43,7 +43,7 @@ namespace Framework.Database
             sqlString = new StringBuilder();
 
             // ToDo: Add support for column selection
-            sqlString.AppendFormat("SELECT * FROM `{0}` `{1}` WHERE ", typeof(T).Name.Pluralize(), param);
+            sqlString.AppendFormat("SELECT * FROM `{0}` `{1}` WHERE ", typeof(T).Name, param);
 
             Visit(expression);
 
@@ -54,7 +54,7 @@ namespace Framework.Database
         {
             sqlString = new StringBuilder();
 
-            sqlString.AppendFormat("DELETE FROM `{1}` USING `{0}` AS `{1}` WHERE ", typeof(T).Name.Pluralize(), param);
+            sqlString.AppendFormat("DELETE FROM `{1}` USING `{0}` AS `{1}` WHERE ", typeof(T).Name, param);
 
             Visit(expression);
 

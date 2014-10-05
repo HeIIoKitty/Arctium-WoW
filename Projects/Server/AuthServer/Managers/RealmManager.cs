@@ -29,11 +29,11 @@ namespace AuthServer.Managers
 {
     class RealmManager : Singleton<RealmManager>
     {
-        public readonly ConcurrentDictionary<uint, Realm> RealmList;
+        public readonly ConcurrentDictionary<uint, realmlist> RealmList;
 
         RealmManager()
         {
-            RealmList = new ConcurrentDictionary<uint, Realm>();
+            RealmList = new ConcurrentDictionary<uint, realmlist>();
 
             new Thread(() =>
             {
@@ -41,8 +41,8 @@ namespace AuthServer.Managers
                 {
                     Log.Message(LogType.Debug, "Updating RealmList...");
                     
-                    Realm realm;
-                    var realms = DB.Auth.Select<Realm>();
+                    realmlist realm;
+                    var realms = DB.Auth.Select<realmlist>();
 
                     RealmList.ToList().ForEach(r =>
                     {

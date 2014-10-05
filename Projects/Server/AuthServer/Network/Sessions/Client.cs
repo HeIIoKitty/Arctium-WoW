@@ -26,7 +26,7 @@ namespace AuthServer.Network.Sessions
     {
         public int Id { get; set; }
         public AuthSession Session { get; set; }
-        public IEnumerable<Module> Modules { get; set; }
+        public IEnumerable<Modules> Modules { get; set; }
         public string ConnectionInfo { get { return Session.GetClientInfo(); } }
         public string Game { get; set; }
         public string OS { get; set; }

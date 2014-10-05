@@ -50,7 +50,7 @@ namespace AuthServer.Network.Packets.Handlers
 
                 foreach (var realm in Manager.RealmMgr.RealmList)
                 {
-                    var ip = IPAddress.Parse(realm.Value.IP).GetAddressBytes();
+                    var ip = IPAddress.Parse(realm.Value.Address).GetAddressBytes();
                     var port = BitConverter.GetBytes(realm.Value.Port);
 
                     Array.Reverse(port);
@@ -84,12 +84,12 @@ namespace AuthServer.Network.Packets.Handlers
                 realmlist.Write(true, 1);
                 realmlist.Write(1, 32);
                 realmlist.Write(0f, 32);
-                realmlist.Write(realm.Value.Flags, 8);
+                realmlist.Write(realm.Value.RealmFlags, 8);
                 realmlist.Write(realm.Value.Id, 19);
-                realmlist.Write(0x80000000 + realm.Value.Type, 32);
+                realmlist.Write(0x80000000 + realm.Value.Icon, 32);
                 realmlist.WriteString(realm.Value.Name, 10, false);
                 realmlist.Write(false, 1);
-                realmlist.Write(realm.Value.Status, 8);
+                realmlist.Write(0, 8);
                 realmlist.Write(0, 12);
                 realmlist.Write(0, 8);
                 realmlist.Write(0, 32);

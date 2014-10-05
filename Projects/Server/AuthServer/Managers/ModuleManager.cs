@@ -32,11 +32,11 @@ namespace AuthServer.Managers
 {
     class ModuleManager : Singleton<ModuleManager>
     {
-        public readonly List<Module> Modules;
+        public readonly List<Modules> Modules;
 
         ModuleManager()
         {
-            Modules = new List<Module>();
+            Modules = new List<Modules>();
 
             UpdateModules();
         }
@@ -45,7 +45,7 @@ namespace AuthServer.Managers
         {
             Log.Message(LogType.Debug, "Loading auth modules...");
 
-            var modules = DB.Auth.Select<Module>();
+            var modules = DB.Auth.Select<Modules>();
 
             foreach (var m in modules)
                 if (AddModule(m, Modules))
@@ -56,7 +56,7 @@ namespace AuthServer.Managers
             IsInitialized = true;
         }
 
-        bool AddModule(Module module, IList list)
+        bool AddModule(Modules module, IList list)
         {
             if (!list.Contains(module))
                 return list.Add(module) != -1;
@@ -64,7 +64,7 @@ namespace AuthServer.Managers
             return false;
         }
 
-        public void WriteModuleHeader(Client client, AuthPacket packet, Module module, int size = 0)
+        public void WriteModuleHeader(Client client, AuthPacket packet, Modules module, int size = 0)
         {
             packet.WriteFourCC(module.Type);
             packet.WriteFourCC("\0\0" + Enum.GetName(typeof(Regions), client.Session.Account.Region));

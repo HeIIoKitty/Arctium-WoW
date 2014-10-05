@@ -149,7 +149,7 @@ namespace Framework.Database
                     values.Add(p.Name, pValue);
             }
 
-            queryBuilder.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name.Pluralize());
+            queryBuilder.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name);
 
             foreach (var name in values.Keys)
                 queryBuilder.AppendFormat("`{0}`,", name);
@@ -171,7 +171,7 @@ namespace Framework.Database
             var properties = typeof(T).GetProperties();
             var queryBuilder = new StringBuilder();
 
-            queryBuilder.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name.Pluralize());
+            queryBuilder.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name);
 
             foreach (var p in properties)
             {
@@ -219,7 +219,7 @@ namespace Framework.Database
             var pkData = GetForeignKeyBaseData(entity);
             var query = new StringBuilder();
 
-            query.AppendFormat("UPDATE `{0}` SET ", typeof(T).Name.Pluralize());
+            query.AppendFormat("UPDATE `{0}` SET ", typeof(T).Name);
 
             for (var i = 0; i < values.Length; i += 2)
                 query.AppendFormat("`{0}` = '{1}', ", values[i].ToString(), values[i + 1]);
@@ -452,14 +452,14 @@ namespace Framework.Database
                     var pKeyData = pKey != null ? pKey.GetValue(entity) : (baseData != null ? baseData.Item2 : null);
 
                     if (pKeyData != null)
-                        query = string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", type.Name.Pluralize(), attr.ForeignKey, pKeyData);
+                        query = string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", type.Name, attr.ForeignKey, pKeyData);
                 }
                 else
                 {
                     var fkBaseData = pFkData ?? GetForeignKeyBaseData(entity);
 
                     if (fkBaseData != null)
-                        query = string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", type.Name.Pluralize(), p.PropertyType.IsGenericType ? fkBaseData.Item1 : "Id", fkBaseData.Item2);
+                        query = string.Format("SELECT * FROM {0} WHERE {1} = '{2}'", type.Name, p.PropertyType.IsGenericType ? fkBaseData.Item1 : "Id", fkBaseData.Item2);
                 }
 
                 if (query != "")
