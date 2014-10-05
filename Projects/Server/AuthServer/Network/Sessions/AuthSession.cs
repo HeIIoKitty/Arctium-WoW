@@ -169,6 +169,9 @@ namespace AuthServer.Network.Sessions
 
             Buffer.BlockCopy(hmac.Hash, 0, wowSessionKey, hmac.Hash.Length, hmac.Hash.Length);
 
+            // Reverse session key order for CMaNGOS account table
+            Array.Reverse(wowSessionKey);
+
             GameAccount.SessionKey = wowSessionKey.ToHexString();
 
             // Update SessionKey in database

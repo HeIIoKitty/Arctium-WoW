@@ -257,7 +257,10 @@ namespace AuthServer.Network.Packets.Handlers
                 complete.Write((ulong)account.Flags, 64);
 
                 complete.Write((byte)gameAccount.Region, 8);
-                complete.WriteString(gameAccount.AccountId + "#" + gameAccount.Index, 5, false, -1);
+
+                // Write email for CMaNGOS account table
+                complete.WriteString(account.Email, 5, false, -1);
+
                 complete.Write((ulong)gameAccount.Flags, 64);
 
                 complete.Write(account.LoginFailures, 32);
