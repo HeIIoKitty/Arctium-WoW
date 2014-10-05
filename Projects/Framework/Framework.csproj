@@ -19,7 +19,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Optimize>false</Optimize>
-	<LangVersion>experimental</LangVersion>
+    <LangVersion>experimental</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -27,7 +27,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<LangVersion>experimental</LangVersion>
+    <LangVersion>experimental</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
@@ -47,21 +47,10 @@
   <ItemGroup>
     <Compile Include="Attributes\ConsoleCommandAttribute.cs" />
     <Compile Include="Attributes\FieldAttribute.cs" />
-    <Compile Include="Attributes\GlobalMessageAttribute.cs" />
     <Compile Include="Constants\Account\AccountFlags.cs" />
     <Compile Include="Constants\Account\GameAccountFlags.cs" />
     <Compile Include="Constants\Account\Regions.cs" />
-    <Compile Include="Constants\General\Class.cs" />
-    <Compile Include="Constants\General\ClassMask.cs" />
-    <Compile Include="Constants\General\Race.cs" />
-    <Compile Include="Constants\General\RaceMask.cs" />
     <Compile Include="Constants\Misc\LogType.cs" />
-    <Compile Include="Constants\Net\GlobalClientMessage.cs" />
-    <Compile Include="Constants\Net\GlobalServerMessage.cs" />
-    <Compile Include="Constants\Object\CharacterCustomizeFlags.cs" />
-    <Compile Include="Constants\Object\CharacterFlags.cs" />
-    <Compile Include="Constants\Object\GuidSubType.cs" />
-    <Compile Include="Constants\Object\GuidType.cs" />
     <Compile Include="Cryptography\BNet\BNetCrypt.cs" />
     <Compile Include="Cryptography\BNet\SRP6a.cs" />
     <Compile Include="Cryptography\SARC4.cs" />
@@ -83,29 +72,6 @@
     <Compile Include="Database\Auth\Entities\RealmCharacterTemplate.cs" />
     <Compile Include="Database\Auth\Entities\RealmClass.cs" />
     <Compile Include="Database\Auth\Entities\RealmRace.cs" />
-    <Compile Include="Database\Character\Entities\Character.cs" />
-    <Compile Include="Database\Character\Entities\CharacterAction.cs" />
-    <Compile Include="Database\Character\Entities\CharacterCreationAction.cs" />
-    <Compile Include="Database\Character\Entities\CharacterCreationData.cs" />
-    <Compile Include="Database\Character\Entities\CharacterCreationSkill.cs" />
-    <Compile Include="Database\Character\Entities\CharacterCreationSpell.cs" />
-    <Compile Include="Database\Character\Entities\CharacterItem.cs" />
-    <Compile Include="Database\Character\Entities\CharacterSkill.cs" />
-    <Compile Include="Database\Character\Entities\CharacterSpell.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateAction.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateClass.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateData.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateItem.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateSet.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateSkill.cs" />
-    <Compile Include="Database\Character\Entities\CharacterTemplateSpell.cs" />
-    <Compile Include="Database\ClientDB\Entities\CharBaseInfo.cs" />
-    <Compile Include="Database\ClientDB\Entities\CharStartOutfit.cs" />
-    <Compile Include="Database\ClientDB\Entities\ChrClass.cs" />
-    <Compile Include="Database\ClientDB\Entities\ChrRace.cs" />
-    <Compile Include="Database\ClientDB\Entities\NameGen.cs" />
-    <Compile Include="Database\ClientDB\Entities\SkillLine.cs" />
-    <Compile Include="Database\ClientDB\Entities\SkillLineAbility.cs" />
     <Compile Include="Database\DB.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DBBulkQuery.cs" />
@@ -120,17 +86,9 @@
     <Compile Include="Misc\Config.cs" />
     <Compile Include="Misc\Extensions.cs" />
     <Compile Include="Misc\Singleton.cs" />
-    <Compile Include="Network\Packets\Packet.cs" />
-    <Compile Include="Network\Packets\PacketHeader.cs" />
-    <Compile Include="Network\SessionBase.cs" />
-    <Compile Include="Objects\IWorldObject.cs" />
-    <Compile Include="Objects\SmartGuid.cs" />
-    <Compile Include="Objects\WorldEntities\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\World\Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Configs\AuthServer.conf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
