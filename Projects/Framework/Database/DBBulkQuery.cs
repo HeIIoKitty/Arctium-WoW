@@ -37,7 +37,7 @@ namespace Framework.Database
             values = new ConcurrentDictionary<long, T>();
             properties = new List<PropertyInfo>();
 
-            Query.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name.Pluralize());
+            Query.AppendFormat("INSERT INTO `{0}` (", typeof(T).Name);
 
             foreach (var p in typeof(T).GetProperties())
             {

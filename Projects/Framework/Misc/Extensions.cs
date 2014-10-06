@@ -31,6 +31,7 @@ namespace Framework.Misc
         // Create only one service
         static PluralizationService pluralService = PluralizationService.CreateService(new CultureInfo("en-US"));
 
+
         #region BinaryReader
         public static Dictionary<Type, Func<BinaryReader, object>> ReadValue = new Dictionary<Type, Func<BinaryReader, object>>()
         {
@@ -174,6 +175,13 @@ namespace Framework.Misc
             var pluralized = pluralService.Pluralize(s);
 
             return pluralized.EndsWith("Datas") ? pluralized.Remove(pluralized.Length - 1, 1) : pluralized;
+        }
+
+        public static string Singularize(this string s)
+        {
+            var singularized = pluralService.Singularize(s);
+
+            return singularized.EndsWith("Datas") ? singularized.Remove(singularized.Length - 1, 1) : singularized;
         }
         #endregion
         #region ByteArray

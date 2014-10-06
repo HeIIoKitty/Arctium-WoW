@@ -51,7 +51,7 @@ namespace AuthServer.Network.Packets.Handlers
                 foreach (var realm in Manager.RealmMgr.RealmList)
                 {
                     var ip = IPAddress.Parse(realm.Value.Address).GetAddressBytes();
-                    var port = BitConverter.GetBytes(realm.Value.Port);
+                    var port = BitConverter.GetBytes((ushort)(realm.Value.Port));
 
                     Array.Reverse(port);
 

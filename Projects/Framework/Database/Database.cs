@@ -430,7 +430,7 @@ namespace Framework.Database
             {
                 var pKeyData = pKey.GetValue(entity);
 
-                return Tuple.Create(type.Name + "Id", pKeyData); 
+                return Tuple.Create(type.Name.Singularize() + "Id", pKeyData); 
             }
 
             return null;
