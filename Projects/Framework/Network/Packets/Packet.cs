@@ -156,79 +156,87 @@ namespace Framework.Network.Packets
             stream.BaseStream.Position += count;
         }
         #endregion
-        #region Writer
-        public void Write<T>(T value, bool isCString = false)
+        #region Writers
+        public void Write(bool value)
         {
-            var type = typeof(T).IsEnum ? typeof(T).GetEnumUnderlyingType() : typeof(T);
-
-            switch (type.Name)
-            {
-                case "Boolean":
-                    stream.Write(Convert.ToBoolean(value));
-                    break;
-                case "SByte":
-                    stream.Write(Convert.ToSByte(value));
-                    break;
-                case "Byte":
-                    stream.Write(Convert.ToByte(value));
-                    break;
-                case "Int16":
-                    stream.Write(Convert.ToInt16(value));
-                    break;
-                case "UInt16":
-                    stream.Write(Convert.ToUInt16(value));
-                    break;
-                case "Int32":
-                    stream.Write(Convert.ToInt32(value));
-                    break;
-                case "UInt32":
-                    stream.Write(Convert.ToUInt32(value));
-                    break;
-                case "Int64":
-                    stream.Write(Convert.ToInt64(value));
-                    break;
-                case "UInt64":
-                    stream.Write(Convert.ToUInt64(value));
-                    break;
-                case "Single":
-                    stream.Write(Convert.ToSingle(value));
-                    break;
-                case "Byte[]":
-                    var data = value as byte[];
-
-                    if (data != null)
-                        stream.Write(data);
-                    break;
-                case "String":
-                    data = Encoding.UTF8.GetBytes(value as string);
-                    data = isCString ? data.Combine(new byte[1]) : data;
-
-                    if (data != null)
-                        stream.Write(data);
-                    break;
-                case "SmartGuid":
-                    var guid = value as SmartGuid;
-
-                    var loGuid = GetPackedGuid(guid.Low, out byte loLength, out byte wLoLength);
-                    var hiGuid = GetPackedGuid(guid.High, out byte hiLength, out byte wHiLength);
-
-                    if (guid.Low == 0 || guid.High == 0)
-                    {
-                        Write<byte>(0);
-                        Write<byte>(0);
-                    }
-                    else
-                    {
-                        Write(loLength);
-                        Write(hiLength);
-                        WriteBytes(loGuid, wLoLength);
-                        WriteBytes(hiGuid, wHiLength);
-                    }
-
-                    break;
-                default:
-                    break;
-            }
+        	stream.Write(value);
+        }
+        
+        public void Write(sbyte value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(byte value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(Int16 value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(UInt16 value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(Int64 value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(UInt64 value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(Single value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(byte[] value)
+        {
+        	if(value != null)
+        		stream.Write(value);
+        }
+        
+        public void Write(string value, bool isCString = false)
+        {
+        	byte[] bytes = Encoding.UTF8.GetBytes(value);
+        	bytes = isCString ? bytes.Combine(new byte[1]) : bytes;
+        	this.Write(bytes);
+        }
+        
+        public void Write(SmartGuid value)
+        {
+        	var loGuid = GetPackedGuid(value.Low, out byte loLength, out byte wLoLength);
+        	var hiGuid = GetPackedGuid(value.High, out byte hiLength, out byte wHiLength);
+        	
+        	if(value.Low == 0 || value.High == 0)
+        	{
+        		Write((byte)0);
+        		write((byte)0);
+        	}
+        	else
+        	{
+        		Write(loLength);
+        		Write(hiLength);
+        		WriteBytes(loGuid, wLoLength);
+        		WriteBytes(hiGuid, wHiLength);
+        	}
+        }
+        
+        public void Write(Int32 value)
+        {
+        	stream.Write(value);
+        }
+        
+        public void Write(uInt32 value)
+        {
+        	stream.Write(value);
         }
 
         public void WriteBytes(byte[] data, int count = 0)
